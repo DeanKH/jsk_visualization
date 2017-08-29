@@ -2,8 +2,9 @@
 from rqt_gui_py.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt, QTimer, qWarning, Slot
-from python_qt_binding.QtGui import QAction, QIcon, QMenu, QWidget
-from python_qt_binding.QtGui import QWidget, QVBoxLayout, QSizePolicy, QColor
+from python_qt_binding.QtGui import QIcon, QColor
+from python_qt_binding.QtWidgets import QAction, QMenu, QWidget
+from python_qt_binding.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 from rqt_py_common.topic_completer import TopicCompleter
 from matplotlib.colors import colorConverter
 from rqt_py_common.topic_helpers import is_slot_numeric
@@ -26,17 +27,17 @@ import os, sys
 import argparse
 
 try:
-    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 except ImportError:
     # work around bug in dateutil
     import sys
     import thread
     sys.modules['_thread'] = thread
-    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 try:
-    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QTAgg as NavigationToolbar
 except ImportError:
-    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 import numpy as np
@@ -262,7 +263,7 @@ class Plot2DWidget(QWidget):
         self.data_plot._canvas.figure.savefig(buffer, format="png")
         buffer.seek(0)
         img_array = np.asarray(bytearray(buffer.read()), dtype=np.uint8)
-        img = cv2.imdecode(img_array, cv2.CV_LOAD_IMAGE_COLOR)
+        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
         self.pub_image.publish(self.cv_bridge.cv2_to_imgmsg(img, "bgr8"))
         
 class MatPlot2D(QWidget):

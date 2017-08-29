@@ -2,8 +2,13 @@
 from rqt_gui_py.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt, QTimer, qWarning, Slot
-from python_qt_binding.QtGui import QAction, QIcon, QMenu, QWidget
-from python_qt_binding.QtGui import QWidget, QVBoxLayout, QSizePolicy, QColor
+from python_qt_binding.QtWidgets import QSizePolicy, QVBoxLayout, QAction, QMenu, QWidget
+from python_qt_binding.QtGui import QIcon
+from python_qt_binding.QtGui import   QColor
+# from python_qt_binding.QtGui import QIcon, QColor
+# from python_qt_binding.QtWidgets import QAction, QMenu, QWidget
+# from python_qt_binding.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
+
 from rqt_py_common.topic_completer import TopicCompleter
 from matplotlib.colors import colorConverter
 from rqt_py_common.topic_helpers import is_slot_numeric
@@ -26,17 +31,17 @@ import argparse
 import collections
 
 try:
-    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 except ImportError:
     # work around bug in dateutil
     import sys
     import thread
     sys.modules['_thread'] = thread
-    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 try:
-    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QTAgg as NavigationToolbar
 except ImportError:
-    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 import numpy as np
